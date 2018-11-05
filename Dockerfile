@@ -1,22 +1,13 @@
-FROM node:8
-RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
-  && tar xzvf docker-17.04.0-ce.tgz \
-  && mv docker/docker /usr/local/bin \
-  && rm -r docker docker-17.04.0-ce.tgz
-# Create app directory
-WORKDIR /usr/src/app
+# use a node base image
+FROM node:7-onbuild
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+# set maintainer
+LABEL maintainer "sandy1480@DevOps.com"
 
-RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
+# set a health check
+HEALTHCHECK --interval=5s \
+            --timeout=5s \
+            CMD curl -f http://127.0.0.1:3000 || exit 1
 
-# Bundle app source
-COPY . .
-
-EXPOSE 8090
-CMD [ "npm", "start" ]
+# tell docker what port to expose
+EXPOSE 3000
