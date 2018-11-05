@@ -127,4 +127,5 @@ app.get('/report', function(req, res){
         });
     })
 });
+server.listen(3000);
 console.log("Running at Port 3000");
