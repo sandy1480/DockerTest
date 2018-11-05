@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("sandy1480/DockerTest")
+        app = sudo docker.build("sandy1480/DockerTest")
     }
 
     stage('Test image') {
