@@ -1,10 +1,8 @@
 node {
     def app
     environment {
-    registry = "sandy1480/docker-test"
-    registryCredential = 'docker-hub-credentials'
-    dockerImage = ''
-  }
+        registry = "sandy1480/docker-test"
+    }
     stage('*** Clone Repository ***') {
         /* Let's make sure we have the repository cloned to our workspace */
 
@@ -15,7 +13,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        app = docker.build("dockerninja")
     }
 
     stage('*** Test Image ***') {
@@ -32,8 +30,9 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-         docker.withRegistry( ‘’, registryCredential ) {
-            dockerImage.push()
+        docker.withRegistry('', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
     }
 }
