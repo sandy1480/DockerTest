@@ -1,5 +1,5 @@
 {
-  "name": "NinjaDockers",
+  "name": "dockertest",
   "version": "1.0.0",
   "description": "Employee Data Extraction in PDF",
   "main": "main.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/getintodevops/masterclass-codeexamples/"
+    "url": "https://github.com/sandy1480/DockerTest/"
   },
   "keywords": [
     "node",
