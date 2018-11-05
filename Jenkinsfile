@@ -13,7 +13,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("dockerninja")
+        app = docker.build registry + ":$BUILD_NUMBER"
     }
 
     stage('*** Test Image ***') {
@@ -31,8 +31,7 @@ node {
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
         docker.withRegistry('', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+            app.push()
         }
     }
 }
